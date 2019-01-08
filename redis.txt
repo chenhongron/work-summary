@@ -1,0 +1,3 @@
+Redis 命令参考       http://doc.redisfans.com/index.html
+
+PHP-redis 中文文档   http://www.cnblogs.com/weafer/archive/2011/09/21/2184059.html

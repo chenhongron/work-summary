@@ -1,0 +1,18 @@
+https://wiki.swoole.com/                        官方文档
+
+模块：
+swoole_server  有swoole_http_server、swoole_websocket_server和swoole_redis_server 服务端通信接口，包括TCP/UDP/UnixSocket协议
+swoole_client  客户端通信，包括TCP/UDP/UnixSocket协议
+swoole_event   底层的事件接口
+swoole_async   异步IO接口
+swoole_process 进程管理接口
+swoole_buffer  强大的内存区管理接口
+swoole_table   超高性能内存表接口
+
+服务端运行方式：
+创建服务-》设置参数-》注册事件回调-》启动服务 （值得提的是服务启动后PHP会把控制权交给swoole，并常驻在进程中）
+
+主要是onReceive\onTask\onFinish三个回调事件
+
+主要应用场景：
+  消息队列、心跳检测、定时器

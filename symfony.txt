@@ -1,0 +1,273 @@
+1、相关文档
+http://symfony.cn/docs/book/index.html                                    中文官方手册
+
+http://www.imooc.com/learn/244                                            洪大师视频
+
+http://itopic.org/twig-template-language.html                             模板引擎
+
+http://www.doctrine-project.org/contribute.html
+
+http://firehare.blog.51cto.com/809276/592385                              基础入门
+
+http://docs.symfony.cn/en/latest/quick_tour/the_controller.html           快速入门
+
+http://blog.it985.com/7466.html                                           app/console命令
+
+http://www.cnblogs.com/Seekr/archive/2012/06/25/2560631.html              数据库操作
+
+http://www.cnblogs.com/Seekr/archive/2012/06/21/2557928.html              路由
+
+http://doc.edusoho.cn                                                     edusoho项目文档
+
+http://www.hcoding.com/?p=27                                              目录结构
+
+http://bbs.phpchina.com/thread-273599-1-1.html                            工作原理
+
+http://my.oschina.net/imot/blog/197365                                    service
+
+http://blog.it985.com/29.html                                             session与cookie
+
+http://www.newlifeclan.com/symfony/archives/category/actual-combat/page/5 实战案例
+
+http://symfony.131.im/doc/current/cookbook/security/entity_provider.html  英文文档
+
+http://www.chrisyue.com/category/posts/page/2                             教程
+
+http://blog.csdn.net/jiaochangyun/article/details/7180758                 Twig
+
+http://my.oschina.net/veekit/blog?catalog=502413                          Twig
+
+http://www.hcoding.com/?p=27                                              源码分析
+
+http://wiki.jikexueyuan.com/project/symfony-cookbook                      官方翻译
+
+http://www.verydemo.com/demo_c453_i7109.html                              安全介绍
+
+http://www.chrisyue.com/dig-into-symfony-2-framework-authentication.html  深入用户身份验证
+
+http://firehare.blog.51cto.com/809276/703599                              野火图的窝 2011年版 翻译了book和cookbook
+
+http://www.imooc.com/learn/244                                            洪大师 慕课网 视频教程
+
+http://www.newlifeclan.com/symfony/                                       中文翻译及论坛
+
+https://github.com/huanghua581/symfony2-jobeet-tutorial symfony           新手项目教程 jobeet 中文站
+
+http://www.chrisyue.com/symfony2-in-action-day-1.html                     另一个项目博客
+
+http://www.cnblogs.com/aoyeyuyan/p/5495219.html                           一些深奥的术语
+
+http://www.symfonychina.com/doc                                           官方中文
+
+
+2、PHP命令模式下创建bundle：php app/console generate:bundle --namespace=Acme/TestBundle
+
+https://www.cnblogs.com/g825482785/p/symfony.html 命令解释
+
+php app/console list                     查看命令
+php app/console doctrine:generate:entity 创建entity
+php app/console doctrine:generate:crud   创建controller
+
+3、原程序routing.yml中用于定义有那些bundle可以使用； 原程序routing_dev.yml中在最下面可以定义bundle入口,如
+_acme2_test:
+    resource: "@Acme2TestBundle/Resources/config/routing.yml"
+或
+__web:
+    resource: "@TopxiaWebBundle/Resources/config/routing.yml"
+
+4、定义bundle入口后，定义默认路由到的控制器，如
+acme2_test_homepage:
+    pattern:  /
+    defaults: { _controller: Acme2TestBundle:Default:index }
+
+5、原程序routing.yml为基础配制，如
+scourgen_web:
+    resource: "@ScourgenWebBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+type 类型有yml xml php annotation(注释控制，支持使用注释Annotation来对程序进行配置，改变其实现逻辑)
+
+6、每一个类似framework的键值对应的都是某一个具体代码包的配置。比如，framework配置的是FrameworkBundle，而swiftmailer配置的是SwiftmailerBundle。
+
+每一个运行环境（environment）的默认配置都可以被覆盖。比如，dev环境所加载的config_dev.yml文件，即是对主配置（config.yml）的一个扩展
+
+7、得到一个repository：
+$repository = $this->getDoctrine()
+        ->getRepository('AcmeStoreBundle:Product');
+
+有了这个repository就可以
+//通过主键查询（一般为"id")
+$product=$repository->find($id);
+
+//动态方法名基于列值查找
+$product=$repository->findOneById($id);
+$product=$repository->findOneByName('foo');
+
+//查询所有产品
+$products=$repository->findAall();
+//基于任意列值查找一组产品
+$products = $repository->findByPrice(19.99);
+
+8、依赖注入 (http://www.thinkphp.cn/topic/12180.html)
+
+首先是面向对象设计模式
+一般当配制发生变化时代码会跟着变化，当多个地方使用这种代码时就需要在多个地方修改
+引入工厂模式，当配制发生变化时只要修改相应的工厂类就可以了
+
+其次当工厂名也发生变化呢，这个时候在多个地方使用工厂的代码也需要修改
+然后变引入了依赖注入，注入类，就没有了工厂的概念
+最后为了防制需要注入多个类，引入了服务容器
+
+9、
+php app/console assets:install --symlink        Resources/public目录下的文件创建到web/bundles中去
+
+10、判断用户角色
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+// ...
+
+public function newAction()
+{
+    $securityContext = $this->container->get('security.context');
+    if (!$securityContext->isGranted('ROLE_ADMIN')) {
+        throw new AccessDeniedException('Only an admin can do this!!!!')
+    }
+
+    // ...
+}
+
+11、安全机制用户身份验证(防火墙)
+     (1)首先监听事件判断是否有用户信息需要验证
+     (2)之后有就调用token进行验证，通过后保存到token storage事件就完了
+  
+         （2-1）在token验证时使用Authentication Provider类处理工作，流程是：用username取出用户-》解密去匹配token里的passwork
+           （2-1-1）取出用户是用User Provider做的，可以不是在数据库里面   
+     (3)最后就是登录成功或失败后的跳转
+
+12、内容缓存
+  $this->getCacheService()->get(self::CACHE_NAME);
+  $this->getCacheService()->set(self::CACHE_NAME, $this->cached);
+  this->getCacheService()->clear(self::CACHE_NAME);
+
+13、使用服务
+  ServiceKernel::instance()->createService('PayCenter.PayCenterService');
+
+14、事物
+  $connection = ServiceKernel::instance()->getConnection();
+  $connection->beginTransaction();
+  $connection->commit();
+  $connection->rollback();
+15、常见目录、术语
+  插件：      bundles     应用程序开发方式，YII2也基于它的这种架构
+  组件：      symfony2    自己的核心组，比如路由组件、安全防火墙组件、事件监听组件等
+  第三方插件：bundles     别人开放的基于symfony2插件编码规范的源码插件，一般放在核心、组件的vendor中
+  第三方应用：vendor_user 别人开放的应用，比如U拍云应用接口、ucenter用户共用等
+  过滤设计:   一个特殊行为 YII2也基于它的这种架构
+
+16、再探路由
+  requirements:该参数接合正则使用，可以让路由任意匹配
+  resource:    导入一个外部路由,把其他地方bundle的拿来用
+  prefix:      增加一个前缀，常和resource一起使用,比如访问后台admin的一个外部路由
+
+17、过滤器
+  symfony2没有过滤器概念，但是可以用更强大的事件分发器处理
+  一个简洁的方法是，1\创建一个空的接口 2\让需要过滤的控制器方法实现接口 3\创建一个监听器 4\在服务注入该控制器方法的监听kernel.controller
+  监听器判断是否继承了该接口instanceof ; 如果创建后过滤器就注入kernel.response
+
+18、重写日志、缓存目录都在app/AppKernel.php中，getCacheDir getLogDir
+
+19、再探安全
+     作用：控制应用资源增删改查
+     方式：认证（Authentication）和授权（Authorization）
+     组成：encoders（指定的编码加密）providers（认证信息提供者，数据库、固定数据、API等）firewalls（防火墙）access_control（访问控制）
+     流程:以登录为例
+          （1）当用户访问access_control定义的权限路由时，防火墙被触发
+          （2）防火墙检测用户有无权限访问，有通过，无拦截后进入login_path定义的登录页面
+                       a、防火墙会在Request里抽取出用户登录信息并创建token（待验证和验证过的），包含username或用户对象
+          （3）用户填写数据提交到check_path定义的路由,防火墙交给认证机制
+          （4）进入providers定义的loadUserByUsername方法，用username获取用户信息
+	      a、使用firewalls中的provider定义的名称,如果没定义，使用providers定义的第一个
+          （5）根据encoders编码加密，匹配userpassword                                    （symfony2内置完成）
+	      a、通过loadUserByUsername返回一个UserInterface接口实例，实例里面提供password等,以供symfony验证
+          （6）成功后设置token 授权                                                      （symfony2内置完成）
+                      a、登录成功后调用事件名为“SecurityEvents::INTERACTIVE_LOGIN”进行服务触发 （symfony2内置完成）
+
+20、Symfony2哲学的核心思想是：应用程序的主要任务就是解释请求(Request)并返回响应(Response)
+
+21、特性
+    比较牛的：Route(路由)、Composer（包管理）、Event和Listener (事件和监听)、Services（服务）、Security（安全）、Twig（模板）、Yml（配制）、bundle(插件系统)和component(组件化)
+    其他行的：Console（命令）、Doctrine（数据模型）、Form（表单组件）
+
+21、安装
+    $ composer create-project symfony/framework-standard-edition my_project_name "2.7.*"        //2.7为长期维护版
+    $ php app/console server:run    或者apache配制虚拟主机
+
+22、再探服务、服务容器、工厂模式、和依赖注入
+    申明一全局的用于处理某事的集合类叫服务
+    把服务放到一起统一管理是服务容器
+    工厂根据场景的不同需要，生产实例不同的类
+    依赖注入是把某类以参数注入到另一个类
+    
+    服务、服务容器、和依赖注入构成一种强大的模式威力
+    首先是在容器里面申明众多的服务，然后建立依赖关系，最后在需要使用的地方get使用；这种强大的地方是修改只在容器，多少层的依赖也只在容器
+
+    服务容器还有其他高级属性，导入、别名、标签、可选依赖、必备文件和私有等
+
+    当有什么类需要注入的时候，也不在使用工厂进行每一个的注入，因为同样设计到类的变动影响到工厂的变到，我们就引入一个约定
+    叫set，让需要的类都注入到DI容器内，然后通过反射、回调函数set出来
+
+
+23、bundle与component
+    bundle是一个只能用在symfony框架下的component集合；即插即用，可以决定那些功能开起，还可以针对插件优化
+    component可以用在任意使用php技术的项目里
+
+24、Doctrine2
+    https://www.cnblogs.com/xuezhang/p/6807626.html   字段使用
+    DBAL(数据库抽象层) :不是直接写SQL语句,而是抽象一层写CURD；基于PDO，封装更多，比之强大
+    ORM (对象关系映射) :使用程序的方式操作数据库,映射到数据表字段,让计算机科学与数据库数学2学科接合(基于DBAL)
+    ORM包括DBAL，抽象的更深
+    JDBC JAVA使用的数据库访问接口，比ORM封装的低，主要是SQL得写源码
+
+25、composer
+    使用:在文件夹内新建composer.json;然后添加require依赖;之后再运行composer install;最后在项目引入vendor/autoload.php
+
+26、命名空间与文件载入
+    命名空间：类似文件与文件夹，未使用命名空间的都在全局空间中，用namespace申请，use使用
+    文件    ：可使用composer autoload自动加载功能，并引用生成文件后就载入了
+    两者联系：在命名空间中类的使用需要两者都不可缺  
+
+27、容器注入
+    得益于强大的依赖注入（控制反转理论的实践），可在服务配制中注入服务容器到具体类、控制器等中，可以在类中使用整个容器了
+
+28、常用的第三方库
+    https://packagist.org  https://github.com
+    https://rivsen.github.io/post/how-to-publish-package-to-packagist-using-github-and-composer-step-by-step //发布依赖包
+
+29、控制反转、依赖倒置和依赖注入
+    都是讲降低代码耦合度的问题；控制反转是一种思想；依赖倒置是一种原则；依赖注入是一种实现方式
+
+30、symfony里面的设计模式
+    Factory method      工厂模式：form窗体的各属性生产
+    Lazy initialization 单例模式:（堕性初始化）用到的时候再去实例化类比如DI的使用，factory method + lazy initialization =DI
+    Adapter             适配模式：版本升级后向下兼容用到，比如2.4的增加了form token的removeToken功能，2.3没有就需要兼容下
+    Composite           组合模式：form窗体都是各属性的组合而成的
+    Decorate            装饰模式：向httpKernel装饰httpCache
+    Iterator            迭代器模式：finder组件用
+    Mediator            中介模式:本上说是做event了，但event是observer模式
+    Strategy            策略模式：httpKernel profiler的保存
+    Template method     模板模式：Security
+
+31、创建自己的框架
+    HttpFoundation 基于http协议对requests、responses进行OOP封装；是框架最底层的组件
+    前端控制器     使其前端的不同请求可以影射到后端相同的入口文件上
+    路由route      对请求的管理；注意的是路由直接管理控制器C层
+    HttpKernel     拥有的控制器解析器和参数解析器对控制器进行优化，使其堕性加载；还有很多核心点比如http cachce等
+		   使用事件派遣机制对该组件中的事件处理
+    关联分离       结构分离出来，目录、文件清晰化
+    Event事件      扩展性的体现，以不至于修改到内核
+    容器           把很多的组件注入进去，以便灵活使用
+    必须说的是framework bundle组件用做连接各部分的纽带,当然在创建自己的框架时我们自己写这部分
+
+32、SF4的展望
+    https://www.chrisyue.com/what-to-expect-of-symfony-4.html
+    https://www.chrisyue.com/symfony-4-demo.html

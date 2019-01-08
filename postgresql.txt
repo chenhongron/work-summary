@@ -1,0 +1,89 @@
+centos用yum安装postgresql的路径为 /var/lib/pgsql/中。 
+
+1.安装postgresql9.0 yum 仓库
+
+ 
+
+rpm -i http://yum.postgresql.org/9.2/redhat/rhel-6-x86_64/pgdg-redhat92-9.2-7.noarch.rpm
+
+ 
+
+2.安装新版本的Postgresql
+
+yum install postgresql92-server postgresql92-contrib
+
+ 
+
+3.初始化数据库
+
+/etc/init.d/postgresql-9.2 initdb
+
+ 
+
+4.启动数据库
+
+/etc/init.d/postgresql-9.2 start
+
+ 
+
+注意：postgresql启动后就可以利用service postgresql-9.2 start/restart/stop来控制它了。
+
+虽然打完service后，按p不提示postgresql-9.2,但是可以用手输。
+
+ 
+
+5.把postgresql加入自启动列表
+
+cd /etc/init.d
+
+chkconfig --add postgresql9.2
+
+
+1.更改表名
+alter table 表名 rename to 新表名
+2.更改字段名
+alter table 表名 rename 字段名 to 新字段名
+3,更改字段类型
+如：ID 字段 原类型为 character varying(50) 新类型为integer
+其中，ID中原有数据为1，2，3等数字
+用如下语句更改
+alter table dbo.titemtype alter column id type integer using to_number(id,'9');
+
+1. 增加字段
+要增加一个字段，使用下面这样的命令：
+ALTER TABLE products ADD COLUMN description text;
+新增的字段对于表中已经存在的行而言最初将先填充所给出的缺省值(如果你没有声明 DEFAULT 子句，那么缺省是 NULL)。
+你也可以同时在该字段上定义约束，使用通常的语法：
+ALTER TABLE products ADD COLUMN description text CHECK (description <> '');
+实际上，所有在 CREATE TABLE 里描述的可以应用于字段的选项都可以在这里使用。不过，我们要注意的是缺省值必须满足给出的约束，否则 ADD 将会失败。另外，你可以在正确填充了新字段的数值之后再增加约束(见下文)。
+【提示】添加一个字段并填充缺省值将会导致更新表中的所有行(为了存储新字段的值)，但如果??有指定缺省值，PostgreSQL 就可以避免物理更新。所以如果你将要在新字段中填充的值大多数都不等于缺省值，那么最好添加一个没有缺省值的字段，然后再使用 UPDATE 更新数据，最后使用下面的方法添加缺省值。
+2. 删除字段
+要删除一个字段，使用下面这样的命令：
+ALTER TABLE products DROP COLUMN description;
+不管字段里有啥数据???都会消失，和这个字段相关的约束也会被删除。不过，如果这个字段被另一个表的外键所引用，PostgreSQL 则不会隐含地删除该约束。你可以通过使用 CASCADE 指明删除任何依赖该字段的东西：
+ALTER TABLE products DROP COLUMN description CASCADE;
+参阅节5.11获取有关这些操作背后的机制的信息。
+3. 增加约束
+要增加一个约束，必须使用表约束语法。比如：
+ALTER TABLE products ADD CHECK (name <> '');ALTER TABLE products ADD CONSTRAINT some_name UNIQUE (product_no);ALTER TABLE products ADD FOREIGN KEY (product_group_id) REFERENCES product_groups;
+要增加一个不能写成表约束的非空约束，使用下面的语法：
+ALTER TABLE products ALTER COLUMN product_no SET NOT NULL;
+这个约束将立即进行检查，所以表在添加约束之前必须符合约束条件。
+4. 删除约束
+要删除一个约束，你需要知道它的名字。如果你曾经给了它取了名字，那???事情就很简单。否则你就需要找出系统自动分配的名字。psql 的命令 \d tablename可以这个帮忙；其它接口可能也提供了检查表的细节的方法。然后就是这条命令：
+ALTER TABLE products DROP CONSTRAINT some_name;
+如果你在处理一个生成的约束名，比如 $2 ，别忘了你需要给它添加双引号，让它成为??个有效的标识符。
+和删除字段一样，如果你想删除被依赖的约束，你需要用 CASCADE 。一个例子是某个外键约束依赖被引用字段上的唯一约束或者主键约束。
+除了非空约束外，所有约束类型都这么用。要删除非空约束，可以这样：
+ALTER TABLE products ALTER COLUMN product_no DROP NOT NULL;
+要记得非空约束没有名字。
+5. 改变字段的缺省值
+要给一个字段设置缺省值，可以使用一个像下面这样的命令：
+ALTER TABLE products ALTER COLUMN price SET DEFAULT 7.77;
+请注意这么做不会影响任何表中现有的数据行，它只是为将来的 INSERT 命令改变缺省值。
+要删除缺省值，可以用
+ALTER TABLE products ALTER COLUMN price DROP DEFAULT;
+这样实际上相当于把缺省设置为空。结果是，如果我们删除一个还没有定义的缺省值不算错误，因为缺省隐含就是 NULL 。
+6. 修改字段的数据类型
+把一个字段转换??另外一种数据类型，使用下面的命令：
+ALTER TAB

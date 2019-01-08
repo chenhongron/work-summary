@@ -1,0 +1,12 @@
+源码安装nginx就面临这样的麻烦，不能使用service nginx restart 来重启nginx，没办法只能重新加载下nginx.
+
+[root@localhost ~]#/usr/local/nginx/sbin/nginx -s reload
+
+修改php设置后你需要重启php才能生效,另外定期重启php会释放所消耗的内存
+
+kill -SIGINT `cat /amps/php-5.3/var/run/php-fpm.pid`
+
+[root@localhost ~]# /amps/php-5.3/sbin/php-fpm
+
+
+/amps/nginx-0.7/sbin/nginx -s  reload

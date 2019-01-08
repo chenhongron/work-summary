@@ -1,0 +1,17 @@
+1、lazy 惰服务：
+     当某服务依赖于另一个较重的服务注入时，可以把另一个服务设为lazy服务，这个时候注入是一个代理并不是实例，只用在使用时才会实例化
+2、注入参数：
+     可以使用构造器__constract、setter和属性注入，constract优点是参数随类一起实例化，生命周期一致，也只会调用一次；setter可以手动，更加灵活；属性注入比较少用
+
+3、doctrineo数据表与实体相互转换
+     bin/console doctrine:mapping:import --force SiteHomeBundle xml              把数据表导出为XML文件
+     bin/console doctrine:mapping:convert annotation ./src                                生成annotation注释映射的实体Entity类
+     bin/console doctrine:generate:entities SiteHomeBundle --no-backup           生成整个SiteHomeBundle下每个Entity类的get，set方法
+     
+     bin/console doctrine:schema:update --dump-sql | grep FK_ -v                      获取实体更新的信息
+
+4、doctrine ORM关联表
+    ManyToMany：多对多关系，设计到三张表，得到多条数据
+    ManyToOne：  多对一关系，设计到二张表，得到一条数据（一般对应另一张表的ID）
+    OneToMany：  一对多关系，设计到二张表，得到多条数据
+    OneToOne：    一对一关系，设计到二张表，得到一条数据
