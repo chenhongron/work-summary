@@ -1,0 +1,27 @@
+DO我不确定有没有这个东西，就暂时不说了， 
+POJO PO BO DTO VO 我归在一起，因为PO DTO VO BO 都叫是POJO，就是个简单的java对象；
+DAO 的话就是进行数据库增删改查的类。下面重点说下这几个，他们都是POJOPO 持久对象，数据；
+BO 业务对象，封装对象、复杂对象 ，里面可能包含多个类；
+DTO 传输对象，前端调用时传输 ；
+VO 表现对象，前端界面展示。
+当你业务足够简单时，一个POJO 也完全当做PO BO DTO VO 看
+
+下面是例子：
+比如有个用户类 只有 name 以及 phone 对于数据库层面也就两列，业务层面，传输，和前台展示时 都只有这两项。
+然后说下他们区别开来的例子：
+1 、还是用户类  name phone 加了个password。
+那么你后端的PO属性也是这3个，一般数据库里这个表有几个字段你的PO就有多少属性，但是传输到前台或者展现时，
+我们不应该把password 密码这种东西也一起传过去，所以他们的DTO VO 就还是 name + phone 
+po : name phone password
+dto : name phone
+vo : name phone 
+
+2、现在又加了一个 枚举的状态位 status 表示用户的一些特殊状态，前台不会直接显示，可能会根据这个状态产生后续的操作，
+po : name phone password status 
+dto : name phone status 
+vo : name phone 
+
+3、接着看下BO ，一个用户下面 肯定会关联很多其他的表比如用户设置 用户信息等，
+那么这个BO 下 不但有用户本身的一些属性，还包含了用户设置 和用户信息这两个类。
+好了，能明白一点吗，其实具体要分到什么程度还是要看项目，很多时候他们其实会没什么区别。
+BO是business业务层
