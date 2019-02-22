@@ -1,0 +1,198 @@
+1、找不到包：
+   从tomcat lib目录下拷贝一个servlet-api.jar的包到“JDK\jre\lib\ext”目录下
+   凡是出现找不到包的情况，都可以将找到的包放到JDK\jre\lib\ext下，然后再编译就能够通过。
+
+2、JAVA WEB
+   http://blog.csdn.net/mayfla/article/details/52081356
+   JSP       : 和PHP嵌入HTML一样，JAVA嵌入        
+   servlet   : 相当于web servre中的CGI，JAVA独用的
+   java bean : 可直接引入JSP页面；一种可复用的类、组件 
+
+3、最早是用来控制电子设备智能化的
+
+4、JAVASE
+   是JAVAEE、JAVAME的基础，包括基础语法、面向对象、I/O、基础类
+
+5、常量、变量
+   常量final修饰，有作用域、静态等，PHP中在类属性必需是常数，JAVA可以是动态的函数附值
+   循环体内的变量只作用于循环内
+   都有类型申明，每种类型都有取值范围
+
+6、执行优先
+   静态属性、静态代码块、构造代码块、构造函数
+
+7、main()
+   是入口，所以必需public；不用实例化，所以必需是static；不用返回值void
+
+8、封装与权限
+   尽量用private以达标准封装，用写get方法访问
+   public、portected、default、private；比PHP多了default，子类和外部包都不可访问
+
+9、数组
+   int score[]=null;score=new int[3]; 或者 int score[]={1,2,3,4,5,6};
+
+10、异常机制
+    报错都会抛出并停止，这样需要异常机制，捕获错误->处理
+
+11、枚举
+    枚举类型继承枚举基类，之后就封装了对该枚举的多种操作，让程序不用写很多就可以使用，比如获取枚举的值、它的下一个值、比较等
+    枚举有保证类型安全的功能，但PHP这种弱类语言上用处不是很大，弱类型语言本就是对类型弱化的，类型安全上不是特别的注重
+
+12、泛型
+    保证程序在运行时类型一致，不会在运行时出现意外情况，保证申明的空间中放的是同类型的数据，类型安全
+
+13、maven创建项目
+   mvn archetype:generate -DgroupId=org.sonatype.mavenbook.ch03 -DartifactId=simple -DpackageName=org.sonatype.mavenbook -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+14、SSM搭建
+  http://blog.csdn.net/zhshulin/article/details/37956105
+
+15、java bean 
+   https://www.cnblogs.com/xiaoxi/p/5935009.html
+   一种可复用的类、组件，与PHP中的组件类似
+   spring框架在实现AOP时需要配制，比如annotation，与PHP中DI容器类似，通过注释进行容器注入
+
+16、流（java.io）
+   https://www.cnblogs.com/Evsward/archive/2017/12/04/io.html
+   流是一组有顺序的、起点和终点的集合。是对设备文件间数据传输的总称和抽象
+   字节流和字符流：即一个字节的读写，一个字符（utf8）的读写(InputStream、OutputStream和reader、writer)
+   流分为输入流和输出流，是根据内存来说，输入为读（I），输出为写（O）
+   对文件的操作为file()类，可以增删改查文件、文件夹
+   操作流程：申明空间（内存、磁盘）-》打开流-》操作（读、写）流-》放入另一空间-》关闭流
+   降低I/O频率使用Buffered
+   一般使用while循环读出
+   可以使用RandomAccessFile指定指针进入的位置
+   
+16、多线程
+   https://www.cnblogs.com/snow-flower/p/6114765.html
+   内置了多线程功能支持，从而简化了多线程编程
+   Thread类的子类、Runnable接口、Callable和Future创建线程
+   生命周期：新建(new)、就绪(start)、运行(run；阻塞、就绪、死亡)
+   线程管理：sleep（睡眠）、yield（让步）、join（合并）、setPriority（优先级）、守护、结束
+   线程同步：synchronized、volatile（并不能保证安全）、Lock
+   线程通信：wait()、notify()、notifyAll()
+             只有在获取到锁的地方使用，synchronized能获取到，所以必须与它一起使用
+             wait()后，就放弃了运行资格，处于冻结状态；并放入线程池等待notify的唤醒；这时其他线程可以执行该synchronized
+             notify唤醒后wait不是马上获取到锁，等synchronized块执行完后才能
+             锁可以代表一个对象，所以wait、notify必须是同一对象（锁）下操作
+   线程池：通过对Executor、ExecutorService、AbstractExecutorService类实现线程池的基本功能（实现类ForkJoinPool、
+                                                                                           ThreadPoolExecutor）
+           步骤：调用Executors类静态工厂方法（对实现类的加工生产）创建ExecutorService线程池
+                 创建Runnable或Callable实现类的实例创建任务
+                 调用ExecutorService.Submit(Runnable/Callable)运行任务
+                 调用ExecutorService.ShutDown()关闭线程池（使用后必须关，JVM不会GC）
+           线程池工厂可以创建出固定、不固定、一个、周期性、一个周期性的线程线程池（线程不够池会新建或把任务放进队列；
+                                                                                   可以设置线程的生命时间）
+           java8加入了基于分治算法的ForkJoinPool类，一个任务分为多个子任务执行
+
+17、==、equals、hashCode
+   ==基本数值类型比较的是值，复合数据类型比较的是内存地址是否相等（两个变量值如果相同，JAVA会将两变量指向同一地址）
+   equals默认（在Object类中）和==一样，但String等基本数据类重写了该方法，比较的是值；用来比较类，不是值数类型
+   hashCode根据hash计算映射到的值
+   结论：equals相等hashCode一定相等；hashCode相等equals不一定相等
+
+18、算法时间复杂度
+   随着数据n的增加，算法受此影响的最大项，记法用大O表示法
+   查找：hash O(1)，顺序线性表 O（1），分治法 O（logn）、链表 O（n）
+   操作（增删改）：hash O(1)，顺序线性表 O（n），链表 O（1）
+   O(1)<O(logn)<O(n)<O(nlogn)<O(n2)<O(n3)<O(2?)<O(n!)
+
+19、Ioc与bean
+    定义bean服务，定义对服务的依赖管理
+    spring加载bean(可写在公共、基类中)
+    在找bean中的具体服务 	
+    调用服务中的方法；该方法对其他类进行管理
+
+20、AOP与BEAN
+    使用配制：
+    定义bean服务，定义拦截/代理类
+    定义bean服务，定义被拦截类
+    定义bean服务，定义系统代理工厂类（框架类），target(被拦截类)、interceptorNames(拦截/代理类)
+    拦截类继承MethodBeforeAdvice为之前执行；继承AfterReturningAdvice为之后执行；继承ThrowsAdvice为抛出异常后执行
+    拦截类中使用methodInvocation.proceed();为定点执行
+
+    使用注解：
+    在beans.xml配制打开aop注解扫描，<aop:aspectj-autoproxy />
+    把拦截、被拦截类注解为服务
+    拦截类里面申明切面@Aspect，切点@Pointcut
+    最后在方法中实现拦截通知
+
+21、tomcat与servlet
+   tomcat应用服务器，不同于http 服务，它不会有代理、负载均衡等，遵守应用相关的规范，例如类库、安全方面
+   servlet运行在应用服务器中的服务容器，相比于CGI（动态WEB服务器访问实现的规范接口）每次请求产生一个进程效率更高
+   CGI实现的规范fastcgi在优化，如PHP的php-cgi（一个主进程多个子进程）
+
+22、SpringMVC处理流程
+    监听的应用服务器在启动时根据web.xml初始化servlet容器，客户端通过http进行WEB服务访问时，容器根据url-pattern拦截请求
+    DispatcherServlet前端控制器接收发过来的请求，交给HandlerMapping处理器映射器
+    HandlerMapping处理器映射器，根据请求路径找到相应的HandlerAdapter处理器适配器（处理器适配器就是那些拦截器或Controller）
+    HandlerAdapter处理器适配器，处理一些功能请求，返回一个ModelAndView对象（包括模型数据、逻辑视图名）
+    ViewResolver视图解析器，先根据ModelAndView中设置的View解析具体视图
+    然后再将Model模型中的数据渲染到View上
+    HandlerMapping、HandlerAdapter、ViewResolver和View全以DispatcherServlet为中转，最后由View返回给用户
+
+23、线程安全3个保证
+    原子性:一组操作不能中断，要么执行要么不执行
+    可见性:由于java的内存模型（线程先把变量从主存读取到自己的内存中操作后再写会主存）所以多线程要求变量对所有线程都是可见的
+    有序性:经过虚拟机的优化可能第二条语句放在首先执行，但保证了执行的正确性
+    synchronized和Lock3个都能保证，volatile不能保证原子性
+    无状态的对象一定是线程安全的（直接输出一个常量的对象）;不可变对象一定是线程安全的(使用final)
+    synchronized让等待的线程无法控制、不能做其他事，让唤醒的线程并不是以等待顺序运行
+    所以有了 ReentrantLock类
+    wait()notify()当有参数时让线程不知道是唤醒还是等待时长达到，当需要多个对象的锁时写起来复杂
+    所以有了 Condition类
+    还有很多其他的协作类；static是保证线程安全的
+
+24、spring常用注解
+   https://www.cnblogs.com/xiaoxi/p/5935009.html
+   没有注解的时候，bean全写在XML文件中，这样导致了大量的XML文件，体验、管理、内聚都不是最好的
+   使用注解需要在XML中加入context包
+   @Autowired  找到XML内的bean并把自己注入进去，@Autowired默认是byTpty注入的，如果找到多个可以指定@Qualifier
+   @Resource   和@Autowired一样，不同的是@Resource默认是byName注入的，是j2ee的；@Autowired是spring的
+   @Contorlle  路由，和@RequestMapping一起使用
+   @Service    让某个类注入为bean，id默认为去大写后的类名，可以修改
+   @Repository 配制DAO 
+   @Component  配制自定义组件的
+
+25、SSM框架bean
+   首先需要配制扫描路径，因为springMVC最先启动，只在这儿注入@Contorller就行了，springMVC容器属于spring容器中，
+   springMVC中可使用spring容器，反之不可以
+   大部份都是通过注解进行容器注入，然后使用相关注解从容器拉出注入到变量，或者在在方法参数set注入
+   一般POJO使用@Componet注入，如果使用DAO的XML形式可在XML resultMap中注入
+
+26、锁的分类
+   公平、非公平锁，乐观锁、悲观锁，分段锁，独享、共享锁，自旋锁
+   ReentrantLock是公平、独享锁
+   Synchronized 是非公平、独享锁
+   ReadWriteLock是读共享锁
+   ConcurrentHashMap是分段锁
+   只要是锁都是悲观锁
+
+27、NIO
+   https://www.cnblogs.com/xiaoxi/p/6576588.html
+   https://segmentfault.com/a/1190000012316621
+   由于传统IO是基于线程的，而线程资源是有限、切换代价高等缺点，所以有了基于通道（channel）的IO
+   channel通道，非阻塞的，可以多开，相当于线程使用；有很多通道比如对socket、文件封装的等
+   buffer 缓冲，每一个通道都需要对应一个buffer，
+   selector选择器，每一个选择器对应一个线程，用来监视channel在buffer上是否完成了任务，比如读、写完成
+  （bufferFull是否读满；selector.select()阻塞到有数据可用）
+   可以为每一个channel在selector注册事件，然后selector根据触发的事件进行操作
+   补：最初是BIO阻塞、然后加线程池的BIO，再然后是NIO（Netty框架）、再是AIO（Vert.x框架）
+         NIO是用reactor模型，最先是单线程的reactor，然后是线程池的channel，最后才是多线程的reactor+线程池channel
+
+28、数据库事务
+   并发的问题：脏读，读取到被更改之前的数据；不可重复读，多次读取发现数据不一致；幻读，出现范围不一样的数据
+               不可重复读主要是说数据的修改，幻读是数据的增加或删除
+   事务隔离级别：
+               读未提交，读取到未提交的数据，如果事物回滚，数据是脏读，出现脏读
+               不可重复读，不会读到未提交的数据，如果事物提交，数据是不一致的，出现不可重复读
+               可重复读（锁行了），不会出现脏读和不可重复读，如果表被增加或删除了数据，出现了幻读
+               串行化（锁表了），脏读、不可以重得读、可重复读、幻读都不会出现
+   由于事务隔离级别越高，并发就越低，所以可以选用一个隔离低的级别，并针对程序里面具体事物进行手动加锁
+
+   redis事务
+    单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断
+    没有隔离级别的概念：队列中的命令没有提交之前都不会实际的被执行，因为事务提交前任何指令都不会被实际执行，也就不存在”
+    事务内的查询要看到事务里的更新，在事务外查询不能看到”这个让人万分头痛的问题
+    不保证原子性：redis同一个事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚
+    WATCH lock key.. 进行key键的监视、乐观锁添加，保证事特在提交前所读到的数据不是脏读、读未提交
