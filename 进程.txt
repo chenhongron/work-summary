@@ -1,0 +1,4 @@
+多进程用pcntl扩展
+? 子进程、孤儿进程、僵尸进程、信号、ipc通信
+通信用socket扩展
+多路复用用libevent/event扩展
