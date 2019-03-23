@@ -1,57 +1,61 @@
-1����̬���Ա
-   ��̬���ԣ�ֻ����ʼ��һ�Σ���ᱣ������ֵ
-   ��̬����������ľ�̬����ֻ����ʼ��һ�Σ������ᱣ������ֵ��ֻ�����ڷ�����
-   ������this���ʣ�����ʵ�������ڱ����ʱ��ֵ�����ʹ�ÿ���ֱ�ӵ��ڴ���ȡ����ȶ�̬�Ŀ�
-   �Ӻ�ʵ�����ø��ѣ��þ�̬����ȥʵ��������ֻ��ʵ����һ���Լ���ε����������Լ�����
+1、静态类成员
+   静态属性：只被初始化一次，类会保存它的值
+   静态方法：里面的静态变量只被初始化一次，方法会保存它的值，只作用于方法内
+   不能用this访问，无需实例化；在编译的时候赋值，多次使用可以直接到内存中取，会比动态的快
+   接合实例化用更佳，用静态调用去实例化，并只被实例化一次自己多次调用其他属性及方法
 
-2��LNPM���ؾ���
-   http://www.cnblogs.com/alvin_xp/p/4162249.html  ��Ҫ����MYSQL���������ƣ��ٰ����������ƾͿ���ʵ���������ݿ��ͬ��
-   nginx proxy_passģ��ʵ�ַ������
-   nginx upstream  ģ��ʵ�ָ��ؾ���
-   nginx proxy_pass��upstream��mysql����ʵ��ϵͳ���ؾ���
+2、LNPM负载均衡
+   http://www.cnblogs.com/alvin_xp/p/4162249.html  主要讲解MYSQL的主从配制，再把主做从配制就可以实现两个数据库的同步
+   nginx proxy_pass模块实现反向代理
+   nginx upstream  模块实现负载均衡
+   nginx proxy_pass、upstream和mysql主从实现系统负载均衡
    mysql-router      http://www.fblinux.com/?p=922
 
-3���߲���
-   ����Ŀ�����߲���ʱ�������ж������ڼ����ܼ�����IO�ܼ���ɵĸ߲���
-   �����ܼ�����ʹ�ö��̣߳���java��
-   IO�ܼ�����ʹ���첽IO  ����nodejs��swoole����goroutine����GO��PHP��Э���������٣�
+3、高并发
+   当项目遇到高并发时，首先判断是由于计算密集还是IO密集造成的高并发
+   计算密集可以使用多线程（如java）
+   IO密集可以使用异步IO  （如nodejs、swoole）、goroutine（如GO，PHP的协程用例很少）
 
-4����Ϣ����MQ
+4、消息队列MQ
    https://www.jianshu.com/p/79ca08116d57
-   ʲôʱ��ʹ��MQ������ʵʱ��עִ�н��
-   ʲôʱ��ʹ��MQ���������첽������Ӧ�ý�������������ϢͨѶ
-   ����Redis��RabbitMQ�������˵redisƫ���ڴ����ݿ⣬rabbitMQ��רҵ����Ϣ����
-   RabbitMQ���ʣ�messege��exchange��binding��queue��channel��publisher��cusumer��connection��broker��Virtual host
+   什么时候不使用MQ：上游实时关注执行结果
+   什么时候使用MQ：常用于异步处理、应用解耦、流量削锋和消息通讯
+   常用Redis和RabbitMQ，相对来说redis偏重内存数据库，rabbitMQ是专业的消息队列
+   RabbitMQ名词：messege、exchange、binding、queue、channel、publisher、cusumer、connection、broker和Virtual host
 
-5��mysql��
-   �ӱ��� LOCK TABLES xxx READ; LOCK TABLES xxx WRITE;
-   ���� UNLOCK TABLES;
-   ������ SELECT ... LOCK IN SHARE MODE; SELECT ... FOR UPDATE;
-   �м���֮ǰ��Ҫ�ر�������Զ��ύ������ִ��START TRANSACTION����insert/update/delete/select for updateִ��ʱ�������Զ��ύ
+5、mysql锁
+   加表锁 LOCK TABLES xxx READ; LOCK TABLES xxx WRITE;
+   解锁 UNLOCK TABLES;
+   加行锁 SELECT ... LOCK IN SHARE MODE; SELECT ... FOR UPDATE;
+   行级锁之前需要关闭事物的自动提交，即先执行START TRANSACTION，因insert/update/delete/select for update执行时事物已自动提交
 
-6�����ù��ߡ�Э��
-   curl             ��Դ�ļ����乤��
-   lts               ssl���ܴ���㰲ȫЭ���׼
-   socket         ����tcp/ip��װ������ͨ�Ź��ߣ��׽���
-   websocket  ����socketʵ�ֵ�WEBͨ��Э��
-   ws              websocketЭ��ı�ʶ������http://
-   wss             ������lts��websocketЭ��ı�ʶ��
+6、常用工具、协议
+   curl             开源文件传输工具
+   lts               ssl加密传输层安全协议标准
+   socket         基于tcp/ip封装的网络通信工具，套节字
+   websocket  基于socket实现的WEB通信协议
+   ws              websocket协议的标识符，如http://
+   wss             加入了lts的websocket协议的标识符
 
-7��AOP
-   OOP������������������������ķ��������Ʒ�ת������ע��ȣ�������ֻ�ܽ�����϶�
-   ��AOP�������ȫ�����϶����⣨AOP�Ƕ�OOP��һ�����䣩
-   ��������̬�������ҵ�������������
-   ��ʽ����̬AOP���������ʱ��ִ��Ч�ʸߣ�����̬AOP�������������������±��룩
-   ��ܣ�GO��AOP
+7、AOP
+   OOP面向对象程序设计致力对象解耦的方案（控制反转，依赖注入等），但这只能降低耦合度
+   用AOP后可以完全解决耦合度问题（AOP是对OOP的一个补充）
+   方案：动态的在相关业务点横向切入代码
+   方式：静态AOP（程序编译时、执行效率高）、动态AOP（建立代理、不用重新编译）
+   框架：GO！AOP
    
-8��PHP�����������
-   PHP5.4��CLI ����web server
-   ��Ҫʹ��socket��������workerman
+8、PHP网络监听方面
+   PHP5.4后CLI 加入web server
+   主要使用socket构建，如workerman
    https://segmentfault.com/a/1190000003029173
 
-9����Ϣ����consumerģ��
+9、消息队列consumer模型
    https://www.jianshu.com/p/b047c7da2a32
-   pull��consumer����ȥ����Ϣ
-   push��borker������Ϣ��consumer
-   long-polling������Ϣconsumer����borkerû����Ϣʱ��������������������ʱ��Χ�ڣ�Ȼ���ٷ���
-   dynamic push/pull���Ƕ�long-polling�ļ�ǿ������buffer�����borker������Ϣʱ������buffer��Ȼ��һͬ���أ�������consumer�Ķ���������翪��
+   pull：consumer主动去拉消息
+   push：borker推送消息给consumer
+   long-polling：当消息consumer请求到borker没有消息时，该请求阻塞（在请求超时范围内）然后再返回
+   dynamic push/pull：是对long-polling的加强。加入buffer概念，在borker返回消息时缓存在buffer，然后一同返回，避免了consumer的多次请求，网络开销
+10、数据库分区：将表的数据均衡分摊到不同的硬盘，系统或是不同服务器存储介子中，实际上还是一张表
+
+11、领域驱动模型：
+  贫血模型model只是实体，没有业务，service全是业务，充血模型model实体有业务，service只是拼凑业务。可以看出充血模型更加oop，因为model是一个完整的对象，有属性有方法
