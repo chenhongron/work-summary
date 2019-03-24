@@ -1,10 +1,12 @@
-��Ҫʹ��5��������PHP��C����һ����
-socket��   ����˽���һ��socket������һ��fd
-connect���ͻ������ӽ����õ�socket��������һ���ͻ���FD
-bluid��     �ڷ���˽�fd�����ӵ�ַ��
-listent:      ����˼����󶨵�socket���޿ͻ������ӣ�������һ������FD������֧�׽���ת��Ϊ�����׽��֣�
-accept:     ��������������տͻ��˵����ӣ�������һ��������FD
+主要使用5个函数（PHP与C语言一样）
+socket：   服务端建立一个socket并返回一个fd
+connect：客户端连接建立好的socket，并返回一个客户端FD
+bluid：     在服务端将fd与连接地址绑定
+listen:      服务端监听绑定的socket有无客户端连接，并返回一个监听FD（将主动套节字转化为监听套节字）
+accept:     服务端阻塞并接收客户端的链接，并返回一个已连接FD（即客户端FD）
 
-����FD��������FD�����Դﵽ��������ͻ��˵�Ŀ��
-
-֮�������read��write�Ⱥ�������·����socket_select�Ⱥ�����߲���������epoll��libevent��
+listen中分为未完成队列和已完成队列，通过三次握手后将放入已完成队列，等待accept的接收
+监听FD与已连接FD：可以达到处理多个客户端的目的
+之后是配合read、write等函数，多路复用socket_select等函数提高并发能力（epoll用libevent）
+listen是将主动套节字转化为监听套节字，select是处理多个文件描述符（监听FD也可以处理）
+同步连接是一个进程/线程处理一个连接，异步连接是一个进程/线程处理多个连接
