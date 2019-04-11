@@ -1,4 +1,17 @@
-�������pcntl��չ
-? �ӽ��̡��¶����̡���ʬ���̡��źš�ipcͨ��
-ͨ����socket��չ
-��·������libevent/event��չ
+多进程用（pcntl扩展）
+  子进程   ：pcntl_fork出的进程
+  孤儿进程：父进程挂后被系统ini=1接收的进程
+  僵尸进程：子进程退出后未回收的进程
+  信号      ：子进程的退出等发送给父进程的信息，如SIGTERM、SIGHUP、SIGCHLD等      
+  ipc通信  ：pipe管道、共享内存、信号量、消息队列、socket
+                  管道就是posix扩展使用posix_mkfifo开启的可以fopen读写的文件
+                  共享内存和信号量一起使用，在PHP中他们的扩展是Semaphore
+进程daemon
+  进程组   ：许多进程组成，有组长、组员，组长ID是组ID
+  会话      ：组长进程不能setsid()一个会话，可以让子进程setsid
+  控制终端：如果控制终端的进程退出后则不可以控制了，达到daemon
+  chdir()   ：调整工作目录的输出，就可以不用输出到终端上了
+
+通信用socket扩展
+  workerman框架等
+  多路复用用libevent/event扩展
