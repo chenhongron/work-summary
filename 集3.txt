@@ -67,3 +67,6 @@
 13、领域驱动模型：
   贫血模型model只是实体，没有业务，service全是业务，充血模型model实体有业务，service只是拼凑业务。
   可以看出充血模型更加oop，因为model是一个完整的对象，有属性有方法
+
+14、启动beanstalkd
+  nohup beanstalkd -l 127.0.0.1 -p 11300 &
