@@ -46,4 +46,25 @@
      所以PHP应用在代码加锁是一种不友好的模式，因为1、PHP不是JAVA这种多线程共享内存 2、应该加锁在数据库层而不是代码层
         数据库层加锁也不好，会增加数据库负担，应该借助redis
         并不推荐使用for update作为日常开发使用。而且，在平时开发和运维中，使用了for update却忘记提交，会引起很多锁表故障
-        innodb是使用索引来加行锁的
+        innodb是使用索引来加行锁的，而myisam不支持行锁
+        
+5、RC与RR比较
+     RC(READ-COMMITTED)
+        优势
+            高并发低开销：半一致性读
+            No gap lock； early unlock。死锁可能性更低
+        劣势
+            不支持statement binlog，binlog消耗更大
+            No gap lock；no early unlock。数据一致性更差
+
+     RR(REPEATABLE-READ)
+        优势
+            支持gap lock：statement binlog
+            事务级快照读
+        劣势
+            并发冲突高，加锁冲突更为剧烈
+            不支持半一致性读，不支持early unlock
+
+     early unlock：update后会释放不符合where的行
+     半一致性读  ：不是完全串行化，一致性降低
+     gap lock     ：解决当前事务的幻读问题，除当前事务之外的幻读不解决
