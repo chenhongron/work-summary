@@ -30,12 +30,13 @@
    行级锁之前需要关闭事物的自动提交，即先执行START TRANSACTION，因insert/update/delete/select for update执行时事物已自动提交
 
 6、常用工具、协议
-   curl             开源文件传输工具
-   lts               ssl加密传输层安全协议标准
-   socket         基于tcp/ip封装的网络通信工具，套节字
+   curl       开源文件传输工具
+   lts        ssl加密传输层安全协议标准
+   socket     基于tcp/ip封装的网络通信工具，套节字
    websocket  基于socket实现的WEB通信协议
-   ws              websocket协议的标识符，如http://
-   wss             加入了lts的websocket协议的标识符
+   ws         websocket协议的标识符，如http://
+   wss        加入了lts的websocket协议的标识符
+   socket.io  能够在不同浏览器和移动设备上使用的基于nodejs的库（包括websocket的实现，因为websocket只h5上用）
 
 7、AOP
    OOP面向对象程序设计致力对象解耦的方案（控制反转，依赖注入等），但这只能降低耦合度
