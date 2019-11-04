@@ -17,6 +17,7 @@ http://svn.php.net/repository/php/
 
   每一个对服务器进行的访问都是通过SAPI进行的。
   APACEH 的 SAPI与IIS CGI/CLI的SAPI不一样，有的时候CLI会使用到C语言的库函数，APACHE不会，APACHE自己有（如flush、send_header等）
+  主要有CGI（IIS的ISAPI，已经很少用）、fast-cgi（比如PHP-FPM）、CLI（比如workerman、swoole）
 
 3、APACHE服务
 

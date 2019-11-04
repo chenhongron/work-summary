@@ -43,3 +43,17 @@ git cherry-pick commitId       //把某个提交合并到当前分支
 git stash                               //存储当前修改
 git stash list                          //查看当前存储
 git stash pop                       //恢复当前存储
+
+//文件的提交记录
+git log --pretty=oneline filename
+show commitid                  //显示某次提交
+
+//合并commit
+git rebase -i commitid
+s                                       //该提交与前一个提交合并
+
+//导出提交文件
+git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT ${commitid} | xargs tar -rf ${targetFileName}.tar
+
+git remote add public-master git@gitlab.kf5.com:backend/ticket-system.git
+git checkout -b public-template public-master/template

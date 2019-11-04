@@ -153,3 +153,9 @@ finger root //查看root的资料
 
 34. uptime 系统当前时间，开机到现在经过的时长，连接数(每个终端算一个连接)，平均负载(过去1, 5, 15 分钟，系统平均要负责运行几个进程)
      grep 'model name' /proc/cpuinfo | wc -l      查看cpu核数
+
+35、查看进程工作目录  pwdx  PID
+
+36、lsattr filename       // 查看文件i权限
+       chattr +i filename  //文件加I
+       chattr -i filename  //文件减I
