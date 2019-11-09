@@ -159,3 +159,5 @@ finger root //查看root的资料
 36、lsattr filename       // 查看文件i权限
        chattr +i filename  //文件加I
        chattr -i filename  //文件减I
+
+37、ps -ef | grep PID  //查看进程运行文件

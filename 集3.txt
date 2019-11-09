@@ -55,7 +55,8 @@
    pull：consumer主动去拉消息
    push：borker推送消息给consumer
    long-polling：当消息consumer请求到borker没有消息时，该请求阻塞（在请求超时范围内）然后再返回
-   dynamic push/pull：是对long-polling的加强。加入buffer概念，在borker返回消息时缓存在buffer，然后一同返回，避免了consumer的多次请求，网络开销
+   dynamic push/pull：是对long-polling的加强。加入buffer概念，在borker返回消息时缓存在buffer，然后一同返回，
+                                  避免了consumer的多次请求，网络开销
 10、联合索引
   复合索引的结构与电话簿类似，人名由姓和名构成，电话簿首先按姓氏对进行排序，然后按名字对有相同姓氏的人进行排序。
   如果您知道姓，电话簿将非常有用；如果您知道姓和名，电话簿则更为有用，但如果您只知道名不姓，电话簿将没有用处。
@@ -89,5 +90,11 @@
 17、服务器进程数=（核心数*2）+磁盘数
 
 18、两种ORM
-   active record：  'model'层直接对应数据表，'model'类与数据表关系紧。更容易oop开发模式，易写出充血模型
-   data mapping：在访问类与数据表中间加了一层manage管理mapping映射到表，分离达到低耦合。有entity实体、reprostory仓库，分层等。易写出贫血模型
+   active record：  'model'层直接对应数据表，'modle'类与数据表关系紧。更容易oop开发模式，易写出充血模型
+   data mapping：在访问类与数据表中间加了一层manage管理mapping映射到表，分离达到低耦合。
+                           有entity实体、reprostory仓库，分层等。易写出贫血模型
+
+19、facade分层与ORM
+   当业务复杂后ORM中类开始膨胀，这个时候抽象一层业务service层，把active record中modle业务或data mapping中controller业务重构到业务层
+   （modle是充血模型，不易把业务拆分到service层，但这个时候利大于弊）
+   当service层的业务也逐渐膨胀的时候，可以抽出子系统的facade，处理不同service层调用顺序（其实controller也是一种facade）
