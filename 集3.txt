@@ -98,3 +98,4 @@
    当业务复杂后ORM中类开始膨胀，这个时候抽象一层业务service层，把active record中modle业务或data mapping中controller业务重构到业务层
    （modle是充血模型，不易把业务拆分到service层，但这个时候利大于弊）
    当service层的业务也逐渐膨胀的时候，可以抽出子系统的facade，处理不同service层调用顺序（其实controller也是一种facade）
+   facade与服务容器结合使用最好，让facade去容器中找
