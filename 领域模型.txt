@@ -1,3 +1,5 @@
+https://www.ituring.com.cn/article/125
+
 DO我不确定有没有这个东西，就暂时不说了， 
 POJO PO BO DTO VO 我归在一起，因为PO DTO VO BO 都叫是POJO，就是个简单的java对象；
 DAO 的话就是进行数据库增删改查的类。下面重点说下这几个，他们都是POJOPO 持久对象，数据；

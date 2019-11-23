@@ -1,0 +1,10 @@
+1、是分布式cluster、node的
+2、index索引???? （既数据库）
+     type组?????????? （既数据表）
+     mapping?????? （既schema）
+     docment文档（既数据）
+3、es是封装Lucene（只提供api）的rest api
+4、分词是可以设置各个type properties的字段类型、使用的分词规则器
+5、最后就是一些增删改查的api使用
+6、多个条件被认为是or，and用bool查询
+7、type只是一个虚拟的分组，便于搜索
