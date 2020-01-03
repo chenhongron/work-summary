@@ -28,3 +28,19 @@ IO多路复用（PHP为例）：
   补：而epoll是使用链表回调式通知调用方，这样1、不用全部FD轮询 2、一个进程打开的FD没有上限3、FD是需要一次copy不用像select全copy
         当然IO多路复用的都不是异步，因为最终还是要有进程/线程同步去处理事件
   
+GatewayWorker进程模型：
+  1、基于workerman扩展，Gateway、Worker进程模型
+      Register进程提供注册服务       （不存在瓶颈，一台服务既可）
+      Gateway进程提供网络IO服务    
+      Business进程提供业务处理服务
+  2、3种进程可分布式部署在不同机子上，可以随服务需求增减机子  
+      底层实现增减服务的注册发现、检测、业务转发
+  3、与常用MVC框架接合
+       clint直接访问MVC                          （MVC需要常驻，一般框架有command命令模式，选用好协议进行常驻）
+       MVC调用GatewayWorker提供的API（当通信到来MVC需要调用GatewayWorker的网络编程功能进行并接合业务处理）
+       GatewayWorker回应clint                （MVC业务处理完毕后调用API直接回应给客户端）
+
+Gateway进程模型与Worker进程模式比较：
+  Worker简单易用，Gateway扩展性强、相对复杂点，更适用于分布式系统
+  worker如PHP-FPM、workerman
+  Gateway其实是以workerman为底层，建立在它上的一个多进程框架

@@ -54,6 +54,8 @@ s                                       //该提交与前一个提交合并
 
 //导出提交文件
 git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT ${commitid} | xargs tar -rf ${targetFileName}.tar
+git diff ${commitid} HEAD --name-only | xargs tar -rf ${targetFileName}.tar                     //某个提交之前的
 
 git remote add public-master git@gitlab.kf5.com:backend/ticket-system.git
+git pull public-master/template
 git checkout -b public-template public-master/template
