@@ -1,4 +1,4 @@
-背景：一个io操作需要经过两个阶段，一个是等待阶段，等待连接、等待数据到内核等，第二个是讲数据拷贝到用户空间
+﻿背景：一个io操作需要经过两个阶段，一个是等待阶段，等待连接、等待数据到内核等，第二个是讲数据拷贝到用户空间
 
 编程模型种类：
   单线程、多线程、事件驱动
@@ -38,3 +38,10 @@ io模型
 
 4) 异步IO（Asynchronous IO）
   马上收到io通知，目前操作系统对异步IO的支持并不完善
+
+异步非阻塞应用：
+1）socket默认是阻塞在 socket_accept上的，只有当有               连接、消息来后才会往下执行，这个时候 socket只能做一件事情－等待，进程白白浪费（但cup会调度）
+2） 给 socket加noblock非阻塞， socket_accept没有连接或消息，程序会往下执行，但这个时候会陷入无限循环，代码报错，且cup被跑满
+3）给 socket再加 socket_select的io复用，这时如果没有事件发生 socket会被阻塞在 socket_select上，从而就达到了异步非阻塞
+4）像nodejs就是在异步非阻塞的基础上，注册on事件
+php可以通过 Closure类申明闭包函数， 然后call_user_func_array（）来回调，以达到nodejs、workerman、swoole相同的效果
