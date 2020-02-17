@@ -61,5 +61,8 @@ http://svn.php.net/repository/php/
       php-fpm : 5.3后出现的进程解释、管理器  //在LINUX平台上使用的实现fastcgi格式的程序,当然比php-cgi先进(该内容作废)
 
 
-
+5、fpm：
+  master负责创建并监听(listen)网络连接，worker负责接受(accept)网络连接.
+  master进程与worker进程之间，通过信号(signals)和管道(pipe)通信．
+  master是基于epoll的事件循环，worker则是同步阻塞的工作模式
 
