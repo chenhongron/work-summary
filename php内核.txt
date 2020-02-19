@@ -18,6 +18,7 @@ http://svn.php.net/repository/php/
   每一个对服务器进行的访问都是通过SAPI进行的。
   APACEH 的 SAPI与IIS CGI/CLI的SAPI不一样，有的时候CLI会使用到C语言的库函数，APACHE不会，APACHE自己有（如flush、send_header等）
   主要有CGI（IIS的ISAPI，已经很少用）、fast-cgi（比如PHP-FPM）、CLI（比如workerman、swoole）
+  既是上层如apache\nginx对PHP实现的CGI/CLI和Apache的mod_php的调用，而CGI/CLI这些都是统一接口的
 
 3、APACHE服务
 
@@ -65,4 +66,8 @@ http://svn.php.net/repository/php/
   master负责创建并监听(listen)网络连接，worker负责接受(accept)网络连接.
   master进程与worker进程之间，通过信号(signals)和管道(pipe)通信．
   master是基于epoll的事件循环，worker则是同步阻塞的工作模式
+
+6、多进程与多线程模式
+    php都支持，默认情况下apache的prefork和event mpm模式支持的是多进程+多线程（worker进程中有多个线程，一个线程挂后不影响其他worker）
+    nginx是多进程模型fastcgi\php-fpm，并发好于apache是因为nginx更加轻量，且非线程安全版本的PHP并发高于线程安全版本
 
