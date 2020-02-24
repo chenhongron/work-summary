@@ -103,3 +103,8 @@
 20、php master与worker进程
    nginx和PHP的进程管理是相似的，皆master、worker使用epoll处理请求。不同的在于，php worker使用poll
    像php这种非高并发WEB语言，其实用poll比epoll好，省去了epoll涉及到的红黑树、链表等复杂消耗性能的地方
+
+21、swoole与workerman
+   swoole不支持多线程不能发挥出多核的性能；不过使用协程可以使用同步的方式写异步代码
+   workerman是PHP fpm生态下产物，对corder更加友好；不会像swoole不可以使用全局变量，打破php生态下的一些常规方式；
+                    不支持协程业务复杂后会进入回调地狱
