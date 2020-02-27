@@ -6,4 +6,4 @@
              必须通过消息才能激发行为，这样就保证Actor内部数据只有被自己修改
    csp：通过不同channel进行消息发布和侦听。典型如GO 的goroutine+channel
 3、回调事件轮询
-   nodejs使用方式
+   nodejs、workerman使用方式
