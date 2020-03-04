@@ -1,4 +1,4 @@
-1、找不到包：
+﻿1、找不到包：
    从tomcat lib目录下拷贝一个servlet-api.jar的包到“JDK\jre\lib\ext”目录下
    凡是出现找不到包的情况，都可以将找到的包放到JDK\jre\lib\ext下，然后再编译就能够通过。
 
@@ -198,3 +198,5 @@
     WATCH lock key.. 进行key键的监视、乐观锁添加，保证事特在提交前所读到的数据不是脏读、读未提交
 
 29.jvm详解   http://blog.csdn.net/yfqnihao
+
+30、泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数
