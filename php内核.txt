@@ -71,3 +71,7 @@ http://svn.php.net/repository/php/
     php都支持，默认情况下apache的prefork和event mpm模式支持的是多进程+多线程（worker进程中有多个线程，一个线程挂后不影响其他worker）
     nginx是多进程模型fastcgi\php-fpm，并发好于apache是因为nginx更加轻量，且非线程安全版本的PHP并发高于线程安全版本
 
+7、生命周期：
+     minit rinit rshutdown mshutdown
+     整个sapi即php进程周期会全部执行，一个php请求只执行中间两个
+
