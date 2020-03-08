@@ -1,5 +1,6 @@
 http://svn.php.net/repository/php/
 1、PHP生命周期：
+     https://www.cnblogs.com/sweet521/p/6781249.html
 
   第一步:启动Apache后，PHP解释程序也随之启动(各个扩展、函数、类库切换到可用状态)
 
