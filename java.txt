@@ -197,7 +197,7 @@
     不保证原子性：redis同一个事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚
     WATCH lock key.. 进行key键的监视、乐观锁添加，保证事特在提交前所读到的数据不是脏读、读未提交
 
-29.jvm详解   http://blog.csdn.net/yfqnihao
+29、jvm详解   http://blog.csdn.net/yfqnihao
 
 30、泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数
 
