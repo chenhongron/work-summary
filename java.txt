@@ -40,6 +40,7 @@
 
 12、泛型
     保证程序在运行时类型一致，不会在运行时出现意外情况，保证申明的空间中放的是同类型的数据，类型安全
+    泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数
 
 13、maven创建项目
    mvn archetype:generate -DgroupId=org.sonatype.mavenbook.ch03 -DartifactId=simple -DpackageName=org.sonatype.mavenbook -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
@@ -197,6 +198,11 @@
     不保证原子性：redis同一个事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚
     WATCH lock key.. 进行key键的监视、乐观锁添加，保证事特在提交前所读到的数据不是脏读、读未提交
 
-29、泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数
+29、actor并发模型
+    actor就是一个系统有多个actor（类比对象，这样很方便了），然后用一个中间actor去执行，各个actor是异步通信且不共享数据，
+    各个并发线程也不用关心线程安全锁等
 
+30、动态代理
+    动态代理就是在编译期（JAVA规范不允许运行时）对类动态的生成一个代理类，然后调用该类时用invok（一种反射机制）调用这个动态代理类
+    CGLib（spring aop使用）和它一样，只是在实现动态代理类时，CGLib原类和代理类是父子关系不用接口，而上面这种是兄弟关系需要申明接口
 
