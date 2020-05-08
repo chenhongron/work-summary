@@ -5,6 +5,8 @@ http://www.cnblogs.com/f-zhao/category/925278.html
 http://www.cnblogs.com/zuoxiaolong/p/pattern26.html
 https://blog.csdn.net/lovelion/article/details/17517213
 
+分类：创建型模式、结构型模式和行为模式
+
 1、简单工厂，根据一个样本让工厂生产产品，用if。缺点是每一次产品有变化就需要修改工厂
 
 2、工厂方法，分离产品与工厂，当产品变化是增加工厂就可以，缺点是这样会有很多工厂出现
@@ -18,6 +20,7 @@ https://blog.csdn.net/lovelion/article/details/17517213
              缺点，会产生很多代理类；一旦接口增加方法，代理类与被代理类都需要维护
    动态代理：使用JDK自带的API newProxyInstance()，或Cglib代理，具体方式对照spring aop
              相对静态优点，代理类可以不实现接口
+   动态代理就是在运行时（其实JAVA是在编译生成字节码）动态的去生成代理类，而静态代理是手动编写的代理；相比PHP来说实现起来比较方便些
 
 6、适配器模式，类适配器、对象适配器、接口适配器
          类适配器是继承需要适配的类，然后调用相应方法；对象适配是注入需要适配的类
