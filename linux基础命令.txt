@@ -150,6 +150,7 @@ finger root //查看root的资料
 32.crontab -e 定时任务
 
 33. nohup command & 关闭shell工具/ctrl+c后进程不会结束 
+     nohup command > myout.file 2>&1 &
 
 34. uptime 系统当前时间，开机到现在经过的时长，连接数(每个终端算一个连接)，平均负载(过去1, 5, 15 分钟，系统平均要负责运行几个进程)
      grep 'model name' /proc/cpuinfo | wc -l      查看cpu核数
@@ -161,3 +162,5 @@ finger root //查看root的资料
        chattr -i filename  //文件减I
 
 37、ps -ef | grep PID  //查看进程运行文件
+
+38、strace -p x  // 跟踪进程的操作
