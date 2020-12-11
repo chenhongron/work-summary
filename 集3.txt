@@ -120,3 +120,20 @@
    https://linuxeye.com/31.html
    https://github.com/oneinstack/lnmp
 
+24、linux下强大的进程追踪命令strace
+   https://www.cnblogs.com/machangwei-8/p/10388883.html
+
+25、领域驱动设计
+   软件由简单到复杂使用两顶帽子，
+   一顶，既在不新加功能适时地对程序结构进行调整
+   二顶，调整好了再新增迭代功能
+   针对第二顶，代码如何以适应新的需求。使用领域驱动设计，用类去描绘模拟真实世界，面向对象开发
+
+26、PHP CLI模式下的调试工具 zbacktrace
+   https://blog.csdn.net/weixin_30878361/article/details/98802771
+   下载php-src，解压后从根目录中找到一个.gdbinit文件，在gdb shell中输入
+   gdb -p xxx      跟踪指定的进程
+   source .gdbinit
+   zbacktrace
+   就可以看到PHP代码的执行栈，还可以打断点等
+
