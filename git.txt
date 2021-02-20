@@ -44,8 +44,8 @@ git stash                               //存储当前修改
 git stash list                          //查看当前存储
 git stash pop                       //恢复当前存储
 
-//文件的提交记录
-git log --pretty=oneline filename
+
+git log --pretty=oneline filename //文件的提交记录
 show commitid                  //显示某次提交
 
 //合并commit

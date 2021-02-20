@@ -59,6 +59,8 @@ http://www.cnblogs.com/aoyeyuyan/p/5495219.html                           一些深
 
 http://www.symfonychina.com/doc                                           官方中文
 
+https://symfony.com/doc/current/the-fast-track/zh_CN/index.html    Symfony 5 快速开发
+
 
 2、PHP命令模式下创建bundle：php app/console generate:bundle --namespace=Acme/TestBundle
 
