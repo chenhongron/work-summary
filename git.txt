@@ -59,3 +59,6 @@ git diff ${commitid} HEAD --name-only | xargs tar -rf ${targetFileName}.tar     
 git remote add public-master git@gitlab.kf5.com:backend/ticket-system.git
 git pull public-master/template
 git checkout -b public-template public-master/template
+
+
+git checkout B public/** view/index.html            // 将分支B下public文件下所有文件和view下index.html文件合并到当前分支

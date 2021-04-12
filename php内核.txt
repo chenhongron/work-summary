@@ -1,4 +1,4 @@
-http://svn.php.net/repository/php/
+﻿http://svn.php.net/repository/php/
 1、PHP生命周期：
      https://www.cnblogs.com/sweet521/p/6781249.html
 
@@ -91,3 +91,6 @@ http://svn.php.net/repository/php/
   中间数据层：PHP自带的函数列表，用户定义的函数列表，PHP自带的类，用户自定义的类，常量，程序创建的对象，
             传递给函数或方法的参数，返回值，局部变量以及一些运算的中间结果（java的方法区，堆上面的东西）
   执行引擎：  个非常简单的实现，它只是依据中间代码序列（EX(opline)）,一步一步调用对应的方法执行
+
+10、PHP与C
+    在执行的过程中zendvm底层会有很多的handler，所有执行的过程实际就是根据各指令调用不同的C函数

@@ -9,8 +9,15 @@
 5、最后就是一些增删改查的api使用
 6、多个条件被认为是or，and用bool查询
 7、type只是一个虚拟的分组，便于搜索
+8、首先对文档的每个字段倒排出term dictionary（就是我们要搜的那个term关键字）和Posting list（就是我们要查找到的文档的id ）
+     然后对term dictionary做排序，比如a到z（这样就可以使用二分查找了，不必全部遍历），但这样和mysql 的b+tree一样，并不能有多快
+     再然后抽出term index是term的一些前缀，如abcd 等。通过term index可以快速地定位到term dictionary的某个offset， 然后从这个位置再往后顺序查找
+     再加上一些压缩技术（搜索 Lucene Finite State Transducers） term index 的尺寸可以只有所有term的尺寸的几十分之一，
+           使得用内存缓存整个term index变成可能
+     最后是联合索引查询，对多个索引查找后（mysql 选定一个索引后第二个索引就不走了）借助一些算法合并就可以了；
+     还有一些把多个文档合并为一个的压缩算法
 
-8、多字段模糊搜索multi_match
+9、多字段模糊搜索multi_match
    type三个best_fields（最佳字段） 、 most_fields（多数字段） 和 cross_fields（跨字段）
    fields，可对该字段进行sorce分值计算匹配
    "query": {
@@ -21,7 +28,7 @@
 	}
     }
 
-9、and or条件查询
+10、and or条件查询
    must(and)  should(or)
 			"must": [{
 				"match_phrase": {
@@ -38,3 +45,27 @@
 					"city": "c"
 				}
 			}],
+
+11、analyze
+   es默认使用analyze索引数据，把数据折成多个token，所以数据是string类型时精确查找term失效，需要申明filed为not_analyzed
+   查询置于 filter 语句内不进行评分或相关度的计算
+
+12、布尔过滤器
+   {
+      "bool" : {
+         "must" :     [],
+         "should" :   [],
+         "must_not" : [],
+      }
+   }
+must
+所有的语句都 必须（must） 匹配，与 AND 等价。
+must_not
+所有的语句都 不能（must not） 匹配，与 NOT 等价。
+should
+至少有一个语句要匹配，与 OR 等价。
+
+13、词项与全文查询
+   词项查询：term这样的底层查询不需要分析阶段，它们对单个词项进行操作
+   全文查询：像 match 或 query_string 这样的高层查询
+   全文查询是基于词项这种底层查询的
