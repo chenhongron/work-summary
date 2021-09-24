@@ -164,3 +164,9 @@ finger root //查看root的资料
 37、ps -ef | grep PID  //查看进程运行文件
 
 38、strace -p x  // 跟踪进程的操作
+
+39、lsof -i:port //端口对应的PID
+
+40、复制粘贴长内容
+      vim add.cpp main.cpp
+      add.cpp中复制（v和p）好后输入:n切换到下一个文件，即main.cpp（按:N切换到上一个文件add.cpp）粘贴（p）

@@ -5,3 +5,5 @@ PHP-redis 中文文档   http://www.cnblogs.com/weafer/archive/2011/09/21/2184059.ht
 全面介绍Redis 是什么，Redis 的特点和功能，Redis 缓存的使用，Redis 为什么能这么快，
 Redis 缓存的淘汰策略，持久化的两种方式，Redis 高可用部分的主从复制和哨兵的基本原理
 https://baijiahao.baidu.com/s?id=1660009541007805174&wfr=spider&for=pc
+
+多种数据结构的使用，list多条后一次写入等，以增加IO效率
