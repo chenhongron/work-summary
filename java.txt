@@ -126,6 +126,7 @@
    tomcat应用服务器，不同于http 服务，它不会有代理、负载均衡等，遵守应用相关的规范，例如类库、安全方面
    servlet运行在应用服务器中的服务容器，相比于CGI（动态WEB服务器访问实现的规范接口）每次请求产生一个进程效率更高
    CGI实现的规范fastcgi在优化，如PHP的php-cgi（一个主进程多个子进程）
+   servlet类似php的FPM、cli，servlet提供了一整套http协议的封装
 
 22、SpringMVC处理流程
     监听的应用服务器在启动时根据web.xml初始化servlet容器，客户端通过http进行WEB服务访问时，容器根据url-pattern拦截请求

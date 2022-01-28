@@ -169,4 +169,6 @@ finger root //查看root的资料
 
 40、复制粘贴长内容
       vim add.cpp main.cpp
-      add.cpp中复制（v和p）好后输入:n切换到下一个文件，即main.cpp（按:N切换到上一个文件add.cpp）粘贴（p）
+      add.cpp中复制（v 、v || yy）好后输入:n切换到下一个文件，即main.cpp（按:N切换到上一个文件add.cpp）粘贴（p）
+
+41、setfacl -R -m u:用户名:rwx 目录
