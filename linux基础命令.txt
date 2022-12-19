@@ -142,6 +142,7 @@ finger root //查看root的资料
 28.yum、rpm指定安装的目录 rpm -ivh --prefix= /opt/temp  xxx.rpm
 
 29.zip -r xx.zip /opt/temp  打包
+    zip -r test.zip test -x "test/test2/*" "test/test3/*"  // 排除目录test/test2  test/test3/
 
 30.wget -c http://www.xxx.com/xxx.zip 下载单个文件
 
@@ -172,3 +173,9 @@ finger root //查看root的资料
       add.cpp中复制（v 、v || yy）好后输入:n切换到下一个文件，即main.cpp（按:N切换到上一个文件add.cpp）粘贴（p）
 
 41、setfacl -R -m u:用户名:rwx 目录
+
+41、显示行号 -N
+
+42、:%s/old/new/g  //批量替换
+
+42、sar -P 28 -u 1 5 //第28核cpu使用情况

@@ -10,3 +10,12 @@ kill -SIGINT `cat /amps/php-5.3/var/run/php-fpm.pid`
 
 
 /amps/nginx-0.7/sbin/nginx -s  reload
+
+kill -USR2 `cat /usr/local/php-7.1.0/var/run/php-fpm.pid`
+
+service nginx restart
+service php-fpm reload
+service php-fpm restart
+
+/usr/local/openresty/nginx/sbin/nginx -t
+systemctl restart openresty

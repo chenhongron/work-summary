@@ -10,12 +10,14 @@
 6、多个条件被认为是or，and用bool查询
 7、type只是一个虚拟的分组，便于搜索
 8、首先对文档的每个字段倒排出term dictionary（就是我们要搜的那个term关键字）和Posting list（就是我们要查找到的文档的id ）
-     然后对term dictionary做排序，比如a到z（这样就可以使用二分查找了，不必全部遍历），但这样和mysql 的b+tree一样，并不能有多快
-     再然后抽出term index是term的一些前缀，如abcd 等。通过term index可以快速地定位到term dictionary的某个offset， 然后从这个位置再往后顺序查找
+     然后对term dictionary做排序，比如a到z（这样就可以使用二分查找了，不必全部遍历），将 Term 有序排列，便可以使用二叉树搜索树的数据结构在o(logn) 下查询到数据，
+     但这样和mysql 的b+tree一样，并不能有多快，再然后抽出term index是term的一些前缀，如abcd 等。通过term index可以快速地定位到term dictionary的某个offset， 然后从这个位置再往后顺序查找
      再加上一些压缩技术（搜索 Lucene Finite State Transducers） term index 的尺寸可以只有所有term的尺寸的几十分之一，
            使得用内存缓存整个term index变成可能
      最后是联合索引查询，对多个索引查找后（mysql 选定一个索引后第二个索引就不走了）借助一些算法合并就可以了；
      还有一些把多个文档合并为一个的压缩算法
+
+分片相当于分库分表，提高容量扩展，副本相当于主从库，提高并发
 
 9、多字段模糊搜索multi_match
    type三个best_fields（最佳字段） 、 most_fields（多数字段） 和 cross_fields（跨字段）
@@ -73,3 +75,18 @@ should
 14、数据建模
    关联关系处理：分2次查询，先查到ID再去另一个表里查到确切的数据
    嵌套对象      ：在一个表里面自定义的嵌套一个对象，需要使用nested查询
+
+15、2升级到7
+    https://juejin.cn/post/6862248431114453006
+
+16、text keyword
+
+text
+    会分词，然后索引
+    支持模糊，精确搜索
+    不支持聚合
+keyword
+    直接索引
+     支持模糊，精确搜索
+    支持聚合
+

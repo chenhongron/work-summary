@@ -136,6 +136,7 @@
    gdb -p xxx      跟踪指定的进程
    source .gdbinit
    zbacktrace
+   反复调用 ctrl + c 、zbacktrace、c 查看程序在哪段PHP代码发生循环
    就可以看到PHP代码的执行栈，还可以打断点等
 
 27、微服务分布式事务

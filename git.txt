@@ -62,3 +62,5 @@ git checkout -b public-template public-master/template
 
 
 git checkout B public/** view/index.html            // 将分支B下public文件下所有文件和view下index.html文件合并到当前分支
+
+git log --grep=xx   // 以提交的内容搜索  
