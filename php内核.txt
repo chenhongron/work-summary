@@ -64,7 +64,7 @@
 
 
 5、fpm：
-  master负责创建并监听(listen)网络连接，worker负责接受(accept)网络连接.
+  master负责管理和监控worker进程，worker负责接受和处理网络连接.
   master进程与worker进程之间，通过信号(signals)和管道(pipe)通信．
   master是基于epoll的事件循环，worker则是同步阻塞的工作模式
 
@@ -94,3 +94,4 @@
 
 10、PHP与C
     在执行的过程中zendvm底层会有很多的handler，所有执行的过程实际就是根据各指令调用不同的C函数
+    而JAVA应该是一些汇编

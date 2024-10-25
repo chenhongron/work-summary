@@ -16,8 +16,11 @@ git push -f                                    //强制提交
 git pull         
 
 //发布一个版本
-git tag 0.1.0
-git push --tags           
+git tag
+git tag tagname
+git push origin tagname
+git show tagname
+git tag --delete tagname     
 
 //分支
 查看分支：git branch
